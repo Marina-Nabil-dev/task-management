@@ -2,12 +2,14 @@
 
 namespace App\Enums;
 
-enum TaskStatusEnum : string
+enum TaskStatusEnum: string
 {
     use EnumHelpers;
-    case NEW = "new";
+    case NEW = 'new';
 
-    case IN_PROGRESS = "in_progress";
+    case IN_PROGRESS = 'in_progress';
 
-    case DONE = "done";
+    case DONE = 'done';
+
+    case OVERDUE = 'overdue';
 }

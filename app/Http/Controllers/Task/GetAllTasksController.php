@@ -7,7 +7,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\GetAllTasksRequest;
 use App\Http\Resources\TaskResource;
 use App\Models\Task;
-use Illuminate\Http\Request;
 
 class GetAllTasksController extends Controller
 {
@@ -15,13 +14,11 @@ class GetAllTasksController extends Controller
     {
         $tasksQuery = Task::query();
 
-        if ($request->has('status'))
-        {
+        if ($request->has('status')) {
             $tasksQuery->whereStatus($request->status);
         }
 
-        if ($request->has('date_from') && $request->has('date_to'))
-        {
+        if ($request->has('date_from') && $request->has('date_to')) {
             $tasksQuery->whereBetween('due_date', [$request->date_from, $request->date_to]);
 
         }

@@ -10,12 +10,6 @@ class ApiException extends Exception
     public $data = [];
     public $errors = [];
 
-    /**
-     * @param string $message
-     * @param $data
-     * @param $code
-     * @param $errors
-     */
     public function __construct(string $message, $data = [], $code = 400, $errors = [])
     {
         $this->code = $code;
@@ -38,7 +32,6 @@ class ApiException extends Exception
     }
 
     /**
-     * @param $data
      * @return array|object
      */
     private function previewData($data)

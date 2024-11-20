@@ -8,8 +8,6 @@ use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 class ResponseHandler
 {
     /**
-     * @param string $message
-     * @param array|object|string $data
      * @return JsonResponse|AnonymousResourceCollection
      */
     public static function success(string $message, array|object|string $data = [], array $paginationAttributes = [])
@@ -35,7 +33,6 @@ class ResponseHandler
     }
 
     /**
-     * @param array $errors
      * @return JsonResponse
      */
     public static function validationError(array $errors)
@@ -51,7 +48,6 @@ class ResponseHandler
     }
 
     /**
-     * @param $data
      * @return array|mixed|object
      */
     private static function previewData($data)

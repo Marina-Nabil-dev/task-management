@@ -13,6 +13,7 @@ class TaskResource extends JsonResource
     {
         return [
             'title' => $this->title,
+            'slug' => $this->slug,
             'description' => $this->description,
             'due_date' => $this->due_date->format('Y-m-d'),
             'status' => $this->status->prettifyName(),

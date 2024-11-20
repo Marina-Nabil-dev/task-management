@@ -15,11 +15,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-         User::factory(10)->create([
-             'password' => Hash::make('password'),
-         ]);
+        User::factory(10)->create([
+            'password' => Hash::make('password'),
+        ]);
 
-         Task::factory(20)
-             ->create();
+        Task::factory(20)
+            ->create();
     }
 }

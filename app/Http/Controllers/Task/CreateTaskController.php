@@ -14,7 +14,7 @@ class CreateTaskController extends Controller
     {
         Task::create([
             ...$request->validated(),
-            'status' => TaskStatusEnum::NEW
+            'status' => TaskStatusEnum::NEW,
         ]);
 
         return ResponseHandler::success('Task created successfully');

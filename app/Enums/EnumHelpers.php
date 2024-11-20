@@ -6,11 +6,6 @@ use Illuminate\Support\Str;
 
 trait EnumHelpers
 {
-    public function equals($value): bool
-    {
-        return $this->value === $value;
-    }
-
     public static function options()
     {
         return array_map(
@@ -33,6 +28,11 @@ trait EnumHelpers
     public static function random()
     {
         return self::cases()[array_rand(self::cases())];
+    }
+
+    public function equals($value): bool
+    {
+        return $this->value === $value;
     }
 
     public function prettifyName()
