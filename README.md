@@ -26,4 +26,12 @@ Also assign tasks to users.
 ### 5. Start the development server
 - php artisan serve
 
+## Testing
+- php artisan test
+
+## Usage
+To Run the queue jobs
+- php artisan queue:work
+
+
 The application should now be running at `http://localhost:8000`
