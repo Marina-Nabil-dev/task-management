@@ -15,6 +15,14 @@ class Task extends Model
 
     protected $guarded = ['id'];
 
+    protected function casts(): array
+    {
+        return [
+            'due_date' => 'date',
+            'status' => TaskStatusEnum::class,
+        ];
+    }
+
     public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()
@@ -31,13 +39,5 @@ class Task extends Model
     {
         return $this->belongsToMany(User::class, 'user_tasks_pivot', 'task_id', 'user_id')
             ->withTimestamps();
-    }
-
-    protected function casts(): array
-    {
-        return [
-            'due_date' => 'date',
-            'status' => TaskStatusEnum::class,
-        ];
     }
 }

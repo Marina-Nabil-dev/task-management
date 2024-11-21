@@ -13,7 +13,6 @@ class TaskFactory extends Factory
 {
     protected $model = Task::class;
 
-
     public function definition(): array
     {
         $title = $this->faker->unique()->word();
@@ -28,12 +27,13 @@ class TaskFactory extends Factory
             'updated_at' => Carbon::now(),
         ];
     }
+
     public function assignToUser(User $user)
     {
         return $this->state(function (array $attributes) use ($user) {
             return $this->afterCreating(function (Task $task) use ($user) {
-              $task->users()->attach($user->id);
+                $task->users()->attach($user->id);
             });
-            });
+        });
     }
 }
