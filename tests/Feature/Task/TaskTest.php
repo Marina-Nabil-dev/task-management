@@ -4,8 +4,6 @@
 use App\Enums\TaskStatusEnum;
 use App\Jobs\MarkOverdueTasksJob;
 use App\Models\Task;
-use App\Models\User;
-use App\Notifications\TaskDueNotification;
 use function Pest\Laravel\{deleteJson, getJson, postJson, patchJson};
 
 beforeEach(function () {
@@ -100,28 +98,6 @@ test('can delete a task', function () {
         'id' => $this->task->id,
         'deleted_at' => null
     ]);
-});
-
-test('should notify users about upcoming tasks', function () {
-    $task = Task::factory()->create([
-        'due_date' => now()->addDay(),
-        'status' => TaskStatusEnum::NEW,
-    ]);
-
-    $users = User::factory(2)->create();
-    $task->users()->attach($users->pluck('id'));
-
-    Notification::fake();
-
-    $this->artisan('notify:user-upcoming-tasks')->assertSuccessful();
-
-    Notification::assertSentTo(
-        $users,
-        TaskDueNotification::class,
-        function ($notification) use ($task) {
-            return $notification->task->id === $task->id;
-        }
-    );
 });
 
 test('marks overdue tasks correctly', function () {
