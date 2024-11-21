@@ -2,7 +2,10 @@
 
 
 use App\Enums\TaskStatusEnum;
+use App\Jobs\MarkOverdueTasksJob;
 use App\Models\Task;
+use App\Models\User;
+use App\Notifications\TaskDueNotification;
 use function Pest\Laravel\{deleteJson, getJson, postJson, patchJson};
 
 beforeEach(function () {
@@ -98,3 +101,54 @@ test('can delete a task', function () {
         'deleted_at' => null
     ]);
 });
+
+test('should notify users about upcoming tasks', function () {
+    $task = Task::factory()->create([
+        'due_date' => now()->addDay(),
+        'status' => TaskStatusEnum::NEW,
+    ]);
+
+    $users = User::factory(2)->create();
+    $task->users()->attach($users->pluck('id'));
+
+    Notification::fake();
+
+    $this->artisan('notify:user-upcoming-tasks')->assertSuccessful();
+
+    Notification::assertSentTo(
+        $users,
+        TaskDueNotification::class,
+        function ($notification, $channels) use ($task) {
+            return $notification->task->id === $task->id;
+        }
+    );
+});
+
+test('marks overdue tasks correctly', function () {
+    $overdueTask1 = Task::factory()->create([
+        'status' => TaskStatusEnum::NEW,
+        'due_date' => now()->subDay(),
+    ]);
+
+    $overdueTask2 = Task::factory()->create([
+        'status' => TaskStatusEnum::IN_PROGRESS,
+        'due_date' => now()->subDays(2),
+    ]);
+
+    $futureTask = Task::factory()->create([
+        'status' => TaskStatusEnum::NEW,
+        'due_date' => now()->addDay(),
+    ]);
+
+    $completedTask = Task::factory()->create([
+        'status' => TaskStatusEnum::DONE,
+        'due_date' => now()->subDay(),
+    ]);
+    (new MarkOverdueTasksJob())->handle();
+
+    expect($overdueTask1->fresh()->status)->toBe(TaskStatusEnum::OVERDUE)
+        ->and($overdueTask2->fresh()->status)->toBe(TaskStatusEnum::OVERDUE)
+        ->and($futureTask->fresh()->status)->toBe(TaskStatusEnum::NEW)
+        ->and($completedTask->fresh()->status)->toBe(TaskStatusEnum::DONE);
+});
+
