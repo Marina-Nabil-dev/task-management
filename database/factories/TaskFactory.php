@@ -13,12 +13,6 @@ class TaskFactory extends Factory
 {
     protected $model = Task::class;
 
-    //    public function configure(): static
-    //    {
-    //        return $this->afterCreating(function (Task $task) {
-    //            $task->users()->sync(User::inRandomOrder()->take(3)->pluck('id'));
-    //        });
-    //    }
 
     public function definition(): array
     {
@@ -33,5 +27,13 @@ class TaskFactory extends Factory
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ];
+    }
+    public function assignToUser(User $user)
+    {
+        return $this->state(function (array $attributes) use ($user) {
+            return $this->afterCreating(function (Task $task) use ($user) {
+              $task->users()->attach($user->id);
+            });
+            });
     }
 }
