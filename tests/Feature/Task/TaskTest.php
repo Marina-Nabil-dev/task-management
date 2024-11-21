@@ -118,7 +118,7 @@ test('should notify users about upcoming tasks', function () {
     Notification::assertSentTo(
         $users,
         TaskDueNotification::class,
-        function ($notification, $channels) use ($task) {
+        function ($notification) use ($task) {
             return $notification->task->id === $task->id;
         }
     );

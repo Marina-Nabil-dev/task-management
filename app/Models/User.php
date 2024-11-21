@@ -33,12 +33,6 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-    public function tasks()
-    {
-        return $this->belongsToMany(Task::class, 'user_tasks_pivot', 'user_id', 'task_id')
-            ->withTimestamps();
-    }
-
     /**
      * Get the attributes that should be cast.
      *
@@ -50,5 +44,11 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function tasks()
+    {
+        return $this->belongsToMany(Task::class, 'user_tasks_pivot', 'user_id', 'task_id')
+            ->withTimestamps();
     }
 }

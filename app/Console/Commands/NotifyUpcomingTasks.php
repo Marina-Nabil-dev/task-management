@@ -29,7 +29,7 @@ class NotifyUpcomingTasks extends Command
     public function handle()
     {
         $tasks = Task::where('due_date', '<=', now()->addDay())
-            ->where('status', TaskStatusEnum::NEW)
+            ->whereStatus(TaskStatusEnum::NEW)
             ->get();
 
         foreach ($tasks as $task) {

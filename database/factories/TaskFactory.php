@@ -30,9 +30,19 @@ class TaskFactory extends Factory
 
     public function assignToUser(User $user)
     {
-        return $this->state(function (array $attributes) use ($user) {
+        return $this->state(function () use ($user) {
             return $this->afterCreating(function (Task $task) use ($user) {
                 $task->users()->attach($user->id);
+            });
+        });
+    }
+
+    public function assignToUsers()
+    {
+        return $this->state(function () {
+            return $this->afterCreating(function (Task $task) {
+                $userIds = User::factory(5)->create()->take(3)->pluck('id');
+                $task->users()->sync($userIds);
             });
         });
     }
