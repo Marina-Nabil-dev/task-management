@@ -73,8 +73,8 @@
                             @endif
                         </div>
                     </div>
-                    <button wire:click="deleteTask({{ $task->id }})"
-                            class="text-red-600 hover:text-red-800"
+                    <button class="text-red-600 {{$task->status === \App\Enums\TaskStatusEnum::PENDING ? 'hover:text-red-800' : 'opacity-50 cursor-not-allowed'}}"
+                            @if($task->status === \App\Enums\TaskStatusEnum::COMPLETED) disabled @endif wire:click="deleteTask({{ $task->id }})"
                             onclick="return confirm('Are you sure you want to delete this task?')">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

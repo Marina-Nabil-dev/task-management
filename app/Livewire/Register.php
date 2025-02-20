@@ -33,7 +33,7 @@ class Register extends Component
         $user->assignRole('user');
         Auth::login($user);
 
-        return redirect()->route('dashboard');
+        return redirect()->route('tasks');
     }
 
     public function render()
