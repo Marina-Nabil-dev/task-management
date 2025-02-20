@@ -25,11 +25,7 @@ Also assign tasks to users.
 
 ### 5. Start the development server
 - php artisan serve
-- 
-## Usage
-To Run the queue jobs
-- php artisan queue:work
-
+-
 ## Admin Account
 - account : admin@system.com
 - password : 123456789
