@@ -21,6 +21,10 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('password'),
         ]);
 
+        User::factory()->user()->create([
+            'password' => Hash::make('password'),
+        ]);
+
         $this->call(RoleSeeder::class);
 
         User::factory()->admin()->create([

@@ -33,5 +33,13 @@ Also assign tasks to users.
 To Run the queue jobs
 - php artisan queue:work
 
+## Admin Account
+- account : admin@system.com
+- password : 123456789
+
+## User Account
+- account : user@system.com
+- password : password
+
 
 The application should now be running at `http://localhost:8000`

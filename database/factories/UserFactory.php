@@ -40,4 +40,12 @@ class UserFactory extends Factory
             $user->assignRole('admin');
         });
     }
+
+    public function user()
+    {
+        return $this->afterCreating(function (User $user)
+        {
+            $user->assignRole('user');
+        });
+    }
 }
