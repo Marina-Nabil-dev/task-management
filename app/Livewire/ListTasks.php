@@ -53,7 +53,11 @@ class ListTasks extends Component
 
     public function render()
     {
-        $query = auth()->user()->tasks();
+        $query = Task::query();
+        if (!auth('sanctum')->user()->hasRole('admin'))
+        {
+            $query = auth('sanctum')->user()->tasks();
+        }
 
         $query->when($this->filter, function ($query)
         {

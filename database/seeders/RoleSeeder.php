@@ -15,7 +15,7 @@ class RoleSeeder extends Seeder
      */
     public function run(): void
     {
-        $roles = [ 'user'];
+        $roles = [ 'user','admin'];
         foreach ($roles as $role) {
             Role::updateOrCreate([
                 'name' => $role,
@@ -27,6 +27,7 @@ class RoleSeeder extends Seeder
         $resources->each(function ($resource) {
             $this->createCrudPermissions($resource);
             $this->syncPermissionsToUser();
+            $this->syncPermissionsToAdmin();
         });
 
 
@@ -74,6 +75,13 @@ class RoleSeeder extends Seeder
     public static function syncPermissionsToUser()
     {
         $role = Role::where('name', 'user')->first();
+
+        $role->givePermissionTo(Permission::all());
+    }
+
+    public static function syncPermissionsToAdmin()
+    {
+        $role = Role::where('name', 'admin')->first();
 
         $role->givePermissionTo(Permission::all());
     }

@@ -21,9 +21,14 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('password'),
         ]);
 
+        $this->call(RoleSeeder::class);
+
+        User::factory()->admin()->create([
+           'password' => Hash::make('123456789'),
+           'email' => "admin@system.com"
+        ]);
+
         Task::factory(20)
             ->create();
-
-        $this->call(RoleSeeder::class);
     }
 }
