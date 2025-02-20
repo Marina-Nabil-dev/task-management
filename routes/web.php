@@ -12,5 +12,5 @@ Route::get('/login', Login::class)->name('login');
 Route::get('/register', Register::class)->name('register');
 Route::middleware('auth:sanctum')
     ->group(function () {
-        Route::get('/tasks', ListTasks::class);
+        Route::get('/tasks', ListTasks::class)->name('tasks');
     });

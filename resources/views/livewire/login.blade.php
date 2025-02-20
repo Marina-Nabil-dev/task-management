@@ -8,7 +8,7 @@
         </div>
         <form wire:submit="login" class="mt-8 space-y-6">
             <div class="rounded-md shadow-sm -space-y-px">
-                <div>
+                <div class="mb-4 text-center">
                     <label for="email" class="sr-only">Email address</label>
                     <input wire:model.live="email" id="email" type="email" required
                            class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"

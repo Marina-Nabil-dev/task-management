@@ -35,9 +35,8 @@ class Task extends Model
         return 'slug';
     }
 
-    public function users()
+    public function user()
     {
-        return $this->belongsToMany(User::class, 'user_tasks_pivot', 'task_id', 'user_id')
-            ->withTimestamps();
+        return $this->belongsTo(User::class);
     }
 }

@@ -23,6 +23,7 @@ class TaskFactory extends Factory
             'description' => $this->faker->text(),
             'due_date' => $this->faker->dateTimeBetween('-2 month', '+2 month')->format('Y-m-d'),
             'status' => $this->faker->randomElement(TaskStatusEnum::values()),
+            'user_id'=> User::inRandomOrder()->first()->id,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ];

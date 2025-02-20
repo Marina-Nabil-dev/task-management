@@ -13,8 +13,10 @@ return new class extends Migration
             $table->string('title');
             $table->string('slug');
             $table->string('description');
-            $table->date('due_date');
-            $table->string('status');
+            $table->date('due_date')->nullable();
+            $table->string('status')->default(\App\Enums\TaskStatusEnum::PENDING);
+            $table->foreignId('user_id');
+
             $table->timestamps();
             $table->softDeletes();
         });
